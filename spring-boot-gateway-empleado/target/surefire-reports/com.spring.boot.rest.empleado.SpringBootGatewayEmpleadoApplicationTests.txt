@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.spring.boot.rest.empleado.SpringBootGatewayEmpleadoApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.876 s - in com.spring.boot.rest.empleado.SpringBootGatewayEmpleadoApplicationTests
