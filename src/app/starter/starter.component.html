@@ -1,0 +1,132 @@
+<div id="mantenimiento-empleado">
+    <div class="page-header page-header-light">
+        <div class="d-flex justify-content-end">
+            <a class="waves-effect waves-dark mr-2" (click)="agregarEmpleado(modal_empleado)" title="Agregar">
+                <i class="ti-plus font-20"></i>
+            </a>
+
+        </div>
+
+    </div>
+    <div class="content">
+        <div class="card">
+            <div class="card-header bg-light header-elements-inline">
+                <h5 class="card-title">Búsqueda avanzada</h5>
+
+            </div>
+
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="tbl_mostrarEmpleado" class="table datatable-basic">
+                    <thead class="bg-primary">
+                        <th>Documento Id </th>
+                        <th>Nombres </th>
+                        <th>Apellidos </th>
+                        <th>Edad</th>
+                        <th>Fecha Nacimiento </th>
+                        <th>Salario </th>
+                        <th class="text-center">Acciones</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let empleado of lst_empleado">
+                            <td>{{ empleado.documentoId }}</td>
+                            <td>{{ empleado.nombres }}</td>
+                            <td>{{ empleado.apellidos }}</td>
+                            <td>{{ empleado.edad }}</td>
+                            <td>{{ empleado.fechaNacimiento }}</td>
+                            <td>{{ empleado.salario }}</td>
+                            <td>
+                                <a class="waves-effect waves-dark mr-2" (click)="modificarEmpleado(empleado.id,modal_empleado )" title="Modificar">
+                                    <i class="ti-pencil font-20"></i>
+                                </a>
+                                <a class="waves-effect waves-dark mr-2" (click)="eliminarEmpleado(empleado.id)" title="Eliminar">
+                                    <i class="ti-close font-20"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #modal_empleado let-modal>
+    <div class="modal-header bg-primary text-center">
+        <h5 id="CabeceraModal" class="modal-title">{{title_Modal}} </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            x
+        </button>
+    </div>
+
+    <form (ngSubmit)="guardarEmpleado(frm_MostrarRegistroUsuario)" name="frm_MostrarRegistroUsuario" #frm_MostrarRegistroUsuario="ngForm">
+        <div class="modal-body form-group">
+            <input type="hidden" [(ngModel)]="empleado.id" name="Id">
+            <div class="row form-group ">
+                <label class="col-form-label col-md-4" for="DocumentoId">Documento Id: <span>(*)</span></label>
+                <div class="form-group col-md-8">
+                    <input type="text" [(ngModel)]="empleado.documentoId" name="DocumentoId" class="form-control" maxlength="15" required>
+                </div>
+            </div>
+            <div class="row form-group ">
+                <label class="col-form-label col-md-4" for="Nombres">Nombres: <span>(*)</span></label>
+                <div class="form-group col-md-8">
+                    <input type="text" [(ngModel)]="empleado.nombres" name="Nombres" class="form-control" maxlength="50" required>
+                </div>
+            </div>
+            <div class="row form-group ">
+                <label class="col-form-label col-md-4" for="Apellidos">Apellidos: <span>(*)</span></label>
+                <div class="form-group col-md-8">
+                    <input type="text" [(ngModel)]="empleado.apellidos" name="Apellidos" class="form-control" maxlength="50" required>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-form-label col-md-4" for="Edad">Edad: <span>(*)</span></label>
+                <div class="form-group col-md-8">
+                    <input type="number" [(ngModel)]="empleado.edad" name="Edad" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-form-label col-md-4" for="FechaNacimiento">Fecha Nacimiento: <span>(*)</span></label>
+                <div class="form-group col-md-8">
+                    <input type="date" timezone="[[timezone]]" [(ngModel)]="empleado.fechaNacimiento" name="FechaNacimiento" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-form-label col-md-4" for="Salario">Salario: <span>(*)</span></label>
+                <div class="form-group col-md-8">
+                    <input type="number" [(ngModel)]="empleado.salario" name="Salario" class="form-control" required>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn text-primary ml-3" data-dismiss="modal" (click)="modal.dismiss('Cross click')">
+            Cerrar
+        </button>
+            <button type="submit " class="btn bg-primary ">
+            Guardar
+        </button>
+        </div>
+    </form>
+</ng-template>
+<ng-template #content2 let-c="close" let-d="dismiss">
+    <div class="modal-header bg-primary text-center">
+        <h5 id="CabeceraModal" class="modal-title">Confirmación de eliminación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            x
+        </button>
+    </div>
+    <div class="modal-body form-group">
+        <p>¿Desea eliminar el registro?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn text-primary ml-3" data-dismiss="modal" (click)="modal.dismiss('Cross click')">
+        Si
+    </button>
+        <button type="submit " class="btn bg-primary ">
+        No
+    </button>
+    </div>
+</ng-template>
